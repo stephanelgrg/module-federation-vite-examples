@@ -5,6 +5,24 @@ const hydrated = ref(false);
 onMounted(() => {
   hydrated.value = true;
 });
+/*
+const { data: remoteData } = await useFetch(
+  "http://localhost:4174/remote/api/test",
+); */
+const { data: remoteData } = await useAsyncData("uad-remote-api-test", async () => {
+  console.log("fetching remote data");
+  const response = await fetch("http://localhost:4174/remote/api/test");
+  return await response.json();
+});
+console.log(remoteData.value);
+
+// const { data: hostData } = await useFetch("/host/api/test");
+const { data: hostData } = await useAsyncData("uad-host-api-test", async () => {
+  console.log("fetching host data");
+  const response = await fetch("http://localhost:4173/host/api/test");
+  return await response.json();
+});
+console.log(hostData.value);
 </script>
 
 <template>
@@ -71,6 +89,12 @@ onMounted(() => {
       />
       {{ hydrated ? "Hydrated" : "SSR" }}
     </span>
+    <pre>
+      {{ remoteData }}
+    </pre>
+    <pre>
+      {{ hostData }}
+    </pre>
   </div>
 </template>
 

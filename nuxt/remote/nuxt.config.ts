@@ -10,6 +10,10 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ["@pinia/nuxt"],
 
+  app: {
+    baseURL: "/remote",
+  },
+
   experimental: {
     buildCache: false,
   },

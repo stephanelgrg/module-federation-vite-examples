@@ -5,13 +5,17 @@ import { resolve } from "node:path";
 // In dev, Nuxt serves Vite assets under /_nuxt/ base.
 // In production/preview, remoteEntry.js is at the root (copied by the build hook below).
 const isDev = process.env.NODE_ENV !== "production";
-const remoteBase = isDev ? "/_nuxt" : "";
+const remoteBase = isDev ? "/remote/_nuxt" : "/remote";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@pinia/nuxt"],
+
+  app: {
+    baseURL: "/host",
+  },
 
   experimental: {
     buildCache: false,
