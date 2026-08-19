@@ -5,6 +5,33 @@ const hydrated = ref(false);
 onMounted(() => {
   hydrated.value = true;
 });
+
+// API call based on app config is going to cause an hydration issue
+const { data } = await useAsyncData("uad-api-test", async () => {
+  console.log("fetching data");
+  const response = await fetch("/api/test");
+  return await response.json();
+});
+console.log(data.value);
+
+// API calls defined this way are going to be OK
+// Each call is explicitly defining the target URL
+const { data: remoteData } = await useAsyncData(
+  "uad-remote-api-test",
+  async () => {
+    console.log("fetching remote data");
+    const response = await fetch("http://localhost:4174/remote/api/test");
+    return await response.json();
+  },
+);
+console.log(remoteData.value);
+
+const { data: hostData } = await useAsyncData("uad-host-api-test", async () => {
+  console.log("fetching host data");
+  const response = await fetch("http://localhost:4173/host/api/test");
+  return await response.json();
+});
+console.log(hostData.value);
 </script>
 
 <template>
@@ -22,9 +49,20 @@ onMounted(() => {
     "
   >
     <div style="margin-top: 10px; font-size: 21px">Remote SSR component</div>
-    <p style="margin: 10px 0 16px; font-size: 12px; color: rgba(255, 255, 255, 0.82)">
+    <p
+      style="
+        margin: 10px 0 16px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.82);
+      "
+    >
       Rendered by remote before client hydration.
     </p>
+    <div style="text-align: left">
+      <div>data:{{ data?.message }}</div>
+      <div>remoteData: {{ remoteData?.message }}</div>
+      <div>hostData: {{ hostData?.message }}</div>
+    </div>
     <button
       v-if="hydrated"
       style="
@@ -49,7 +87,9 @@ onMounted(() => {
           ? 'linear-gradient(135deg, rgba(156, 224, 170, 0.2), rgba(246, 179, 82, 0.12))'
           : 'rgba(255, 255, 255, 0.08)',
         borderRadius: '999px',
-        boxShadow: hydrated ? 'inset 0 0 0 1px rgba(156, 224, 170, 0.18)' : 'none',
+        boxShadow: hydrated
+          ? 'inset 0 0 0 1px rgba(156, 224, 170, 0.18)'
+          : 'none',
         color: hydrated ? '#9ce0aa' : '#aeb4bc',
         display: 'inline-flex',
         fontSize: '12px',
@@ -129,7 +169,11 @@ onMounted(() => {
 }
 
 .badge.hydrated {
-  background: linear-gradient(135deg, rgba(156, 224, 170, 0.2), rgba(246, 179, 82, 0.12));
+  background: linear-gradient(
+    135deg,
+    rgba(156, 224, 170, 0.2),
+    rgba(246, 179, 82, 0.12)
+  );
   box-shadow: inset 0 0 0 1px rgba(156, 224, 170, 0.18);
   color: #9ce0aa;
 }
