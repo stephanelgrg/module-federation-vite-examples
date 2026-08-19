@@ -10,8 +10,12 @@
 
 Getting started:
 
-- [ ] Is CSR OK?
+- [x] Is CSR OK?
+  - [x] Rendering
+  - [x] Fetching data with or without app config
 - [ ] Is SSR OK? (check hydration)
+  - [x] Rendering
+  - [ ] Not working when using app config (as the component is 1st rendered by remote, then hydrated on client with host config)
 
 Managing libs:
 
