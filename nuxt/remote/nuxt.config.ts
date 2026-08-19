@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    baseURL: "/remote",
+  },
   compatibilityDate: "2025-07-15",
   // Only the host needs a DevTools bridge while both apps run together.
   // Enabling it in both apps makes them compete for port 24678.

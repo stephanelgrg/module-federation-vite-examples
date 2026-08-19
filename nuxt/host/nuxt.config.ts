@@ -2,6 +2,9 @@ const isDev = process.env.NODE_ENV !== "production";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    baseURL: "/host",
+  },
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@pinia/nuxt", "@module-federation/nuxt"],
@@ -22,8 +25,8 @@ export default defineNuxtConfig({
           type: "module",
           name: "remote",
           entry: isDev
-            ? "http://localhost:4174/_nuxt/remoteEntry.js"
-            : "http://localhost:4174/_mf/mf-manifest.json",
+            ? "http://localhost:4174/remote/_nuxt/remoteEntry.js"
+            : "http://localhost:4174/remote/_mf/mf-manifest.json",
           entryGlobalName: "remote",
           shareScope: "default",
         },
