@@ -23,7 +23,7 @@ export default defineNuxtConfig({
           name: "remote",
           entry: isDev
             ? "http://localhost:4174/_nuxt/remoteEntry.js"
-            : "http://localhost:4174/_mf/mf-manifest.json",
+            : "http://localhost:4174/mf-manifest.json",
           entryGlobalName: "remote",
           shareScope: "default",
         },
@@ -32,8 +32,8 @@ export default defineNuxtConfig({
       filename: "remoteEntry.js",
       manifest: true,
       shared: {
-        vue: { singleton: true, requiredVersion: "3.5.29" },
-        "vue-router": { singleton: true, requiredVersion: "4.6.4" },
+        vue: { singleton: true, requiredVersion: "3.5.45" },
+        "vue-router": { singleton: true, requiredVersion: "5.5.0" },
       },
     },
   },

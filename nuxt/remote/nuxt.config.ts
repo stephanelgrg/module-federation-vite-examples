@@ -21,8 +21,8 @@ export default defineNuxtConfig({
       remotes: {},
       manifest: true,
       shared: {
-        vue: { singleton: true, requiredVersion: "3.5.29" },
-        "vue-router": { singleton: true, requiredVersion: "4.6.4" },
+        vue: { singleton: true, requiredVersion: "3.5.45" },
+        "vue-router": { singleton: true, requiredVersion: "5.5.0" },
       },
     },
   },
