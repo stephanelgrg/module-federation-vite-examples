@@ -6,6 +6,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@pinia/nuxt", "@module-federation/nuxt"],
 
+  app: {
+    baseURL: "/host/",
+  },
+
   experimental: {
     buildCache: false,
   },
@@ -22,8 +26,8 @@ export default defineNuxtConfig({
           type: "module",
           name: "remote",
           entry: isDev
-            ? "http://localhost:4174/_nuxt/remoteEntry.js"
-            : "http://localhost:4174/mf-manifest.json",
+            ? "http://localhost:4174/remote/_nuxt/remoteEntry.js"
+            : "http://localhost:4174/remote/mf-manifest.json",
           entryGlobalName: "remote",
           shareScope: "default",
         },

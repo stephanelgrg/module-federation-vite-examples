@@ -6,6 +6,10 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ["@module-federation/nuxt"],
 
+  app: {
+    baseURL: "/remote/",
+  },
+
   experimental: {
     buildCache: false,
   },
