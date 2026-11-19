@@ -2,6 +2,11 @@
 const count = ref(0);
 const hydrated = ref(false);
 
+const { data: remoteData } = await useAsyncData("api-test", async () => {
+  const response = await fetch("/api/test");
+  return await response.json();
+});
+
 onMounted(() => {
   hydrated.value = true;
 });
@@ -39,6 +44,7 @@ onMounted(() => {
       </svg>
     </div>
     <div style="margin-top: 10px; font-size: 21px">I'm the remote app</div>
+    <p class="theme">{{ remoteData?.message }}</p>
     <button
       v-if="hydrated"
       style="
